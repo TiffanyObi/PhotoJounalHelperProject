@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LCg-x0-8Gg">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Display Photo Jounal View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="DisplayPhotoJounalViewController" customModule="PhotoJounalHelperProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sX4-Ww-aTo">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C2k-YT-Pa5">
+                                    <size key="itemSize" width="302" height="353"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="journalCell" id="BSm-mK-k19" customClass="ImageJournalCollectionViewCell" customModule="PhotoJounalHelperProject" customModuleProvider="target">
+                                        <rect key="frame" x="56" y="0.0" width="302" height="353"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Mrd-8d-quF">
+                                            <rect key="frame" x="0.0" y="0.0" width="302" height="353"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun.haze" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1pr-xz-1eO">
+                                                    <rect key="frame" x="8" y="7.5" width="286" height="249"/>
+                                                    <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description text" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XPN-fN-WNL">
+                                                    <rect key="frame" x="31" y="263" width="240" height="57"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qr0-8p-xo2">
+                                                    <rect key="frame" x="241" y="327" width="41" height="18.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="4"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" backgroundImage="ellipsis" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="optionsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pd8-BF-Heq"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qr0-8p-xo2" secondAttribute="bottom" id="2N5-7y-65G"/>
+                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="height" secondItem="Mrd-8d-quF" secondAttribute="height" multiplier="0.699717" id="5Rp-7r-Vqc"/>
+                                                <constraint firstItem="qr0-8p-xo2" firstAttribute="width" secondItem="Mrd-8d-quF" secondAttribute="width" multiplier="0.135762" id="EwV-VY-W6v"/>
+                                                <constraint firstAttribute="trailing" secondItem="XPN-fN-WNL" secondAttribute="trailing" constant="31" id="I1H-Ih-lgd"/>
+                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="top" secondItem="1pr-xz-1eO" secondAttribute="bottom" constant="8" id="MN7-aK-Svg"/>
+                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="leading" secondItem="Mrd-8d-quF" secondAttribute="leading" constant="31" id="Vn4-rf-axt"/>
+                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="leading" secondItem="Mrd-8d-quF" secondAttribute="leading" constant="8" id="euK-lJ-cK5"/>
+                                                <constraint firstAttribute="trailing" secondItem="1pr-xz-1eO" secondAttribute="trailing" constant="8" id="gCf-nK-KBS"/>
+                                                <constraint firstItem="qr0-8p-xo2" firstAttribute="top" secondItem="XPN-fN-WNL" secondAttribute="bottom" id="j1j-tc-Jmk"/>
+                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="top" secondItem="Mrd-8d-quF" secondAttribute="top" constant="8" id="p45-40-Eo8"/>
+                                                <constraint firstAttribute="trailing" secondItem="qr0-8p-xo2" secondAttribute="trailing" constant="20" id="rRe-0i-r6w"/>
+                                                <constraint firstAttribute="bottom" secondItem="XPN-fN-WNL" secondAttribute="bottom" constant="33" id="woq-kH-esy"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="302" height="353"/>
+                                        <connections>
+                                            <outlet property="descriptionTextFeild" destination="XPN-fN-WNL" id="Kdf-Be-fWc"/>
+                                            <outlet property="imageView" destination="1pr-xz-1eO" id="xT3-6m-tB1"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0h2-qL-VIL">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ywp-kg-6fH"/>
+                                    <barButtonItem image="plus.app.fill" catalog="system" id="jQK-Ya-Q0K">
+                                        <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="pHL-7R-cOv"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0h2-qL-VIL" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="4ta-AK-i3f"/>
+                            <constraint firstItem="sX4-Ww-aTo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="8hS-RB-x4m"/>
+                            <constraint firstItem="0h2-qL-VIL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AMl-uU-nPJ"/>
+                            <constraint firstItem="sX4-Ww-aTo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kvp-Eg-HwR"/>
+                            <constraint firstItem="0h2-qL-VIL" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ni7-nm-SM2"/>
+                            <constraint firstItem="0h2-qL-VIL" firstAttribute="top" secondItem="sX4-Ww-aTo" secondAttribute="bottom" id="Qp0-oO-isb"/>
+                            <constraint firstItem="sX4-Ww-aTo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="VYH-gL-Gis"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="VBf-gv-J10"/>
+                    <connections>
+                        <outlet property="collectionView" destination="sX4-Ww-aTo" id="OFa-KV-659"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="852.17391304347836" y="129.91071428571428"/>
+        </scene>
+        <!--Add And Edit Jounals View Controller-->
+        <scene sceneID="9tl-bg-Bbo">
+            <objects>
+                <tableViewController id="keu-kY-Fg1" customClass="AddAndEditJounalsViewController" customModule="PhotoJounalHelperProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mTE-Zr-LYh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <sections>
+                            <tableViewSection id="mOb-iK-MXc">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="106" id="GWr-rx-lie">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="106"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GWr-rx-lie" id="kOT-Xb-PCZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvf-lQ-FZi">
+                                                    <rect key="frame" x="20" y="11" width="82" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Cancel"/>
+                                                    <connections>
+                                                        <action selector="cancelButtonPressed:" destination="keu-kY-Fg1" eventType="touchUpInside" id="1Vb-v3-712"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrN-lC-bc5">
+                                                    <rect key="frame" x="284" y="11" width="110" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Save Journal"/>
+                                                </button>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start typing here ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ETh-qz-p12">
+                                                    <rect key="frame" x="20" y="61" width="374" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="469" id="994-Dl-rfv">
+                                        <rect key="frame" x="0.0" y="134" width="414" height="469"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="994-Dl-rfv" id="4vi-Ec-ksO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="469"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uph-dm-Ysr">
+                                                    <rect key="frame" x="0.0" y="8" width="414" height="461"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Uph-dm-Ysr" firstAttribute="leading" secondItem="4vi-Ec-ksO" secondAttribute="leading" id="KsU-KU-e2C"/>
+                                                <constraint firstAttribute="bottom" secondItem="Uph-dm-Ysr" secondAttribute="bottom" id="dp1-6o-emR"/>
+                                                <constraint firstAttribute="trailing" secondItem="Uph-dm-Ysr" secondAttribute="trailing" id="fhG-4d-h9F"/>
+                                                <constraint firstItem="Uph-dm-Ysr" firstAttribute="top" secondItem="4vi-Ec-ksO" secondAttribute="top" constant="8" id="gt2-ZU-Aqc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="vem-vk-mk9">
+                                        <rect key="frame" x="0.0" y="603" width="414" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vem-vk-mk9" id="bfc-z7-2bb">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltm-1N-DXX">
+                                                    <rect key="frame" x="19" y="12" width="111" height="42"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Photo Library"/>
+                                                    <connections>
+                                                        <action selector="photoLibraryButtonPressed:" destination="keu-kY-Fg1" eventType="touchUpInside" id="gvB-to-G2I"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-Um-hSB">
+                                                    <rect key="frame" x="328" y="15" width="54" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" backgroundImage="camera.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="cameraButtonPressed:" destination="keu-kY-Fg1" eventType="touchUpInside" id="2ht-n8-WfX"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="keu-kY-Fg1" id="wMk-pi-fys"/>
+                            <outlet property="delegate" destination="keu-kY-Fg1" id="RI6-H8-ewK"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="descriptionTextFeild" destination="ETh-qz-p12" id="cv3-C6-hTX"/>
+                        <outlet property="saveJournalButton" destination="IrN-lC-bc5" id="Zja-y4-mtd"/>
+                        <outlet property="selectedImageView" destination="Uph-dm-Ysr" id="o8y-5m-vga"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yYD-Iy-t24" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1602.8985507246377" y="129.91071428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="w7j-gA-Naf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LCg-x0-8Gg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XB9-Ya-b1j">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="aEs-RE-NJI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y3h-x4-Mb6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-57.971014492753625" y="129.91071428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="camera.fill" catalog="system" width="64" height="48"/>
+        <image name="ellipsis" catalog="system" width="64" height="18"/>
+        <image name="plus.app.fill" catalog="system" width="64" height="56"/>
+        <image name="sun.haze" catalog="system" width="64" height="58"/>
+    </resources>
+</document>
