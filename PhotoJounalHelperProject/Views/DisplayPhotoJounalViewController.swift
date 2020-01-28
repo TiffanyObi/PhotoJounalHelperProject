@@ -13,12 +13,21 @@ class DisplayPhotoJounalViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var imageObjects = [ImageObject]()
+    private var imageObjects = [ImageObject](){
+        didSet{
+            collectionView.reloadData()
+           loadJournals()
+        }
+    }
+    
+     var dataPersistance = PersistenceHelper(filename: "photo.plist")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
+        loadJournals()
     }
-
+    
     
     @IBAction func optionsButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -38,11 +47,26 @@ class DisplayPhotoJounalViewController: UIViewController {
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let addAndEditVC = segue.destination as? AddAndEditJounalsViewController else { return }
+        addAndEditVC.journalDelegate = self
+        
+    }
+    
+    func loadJournals() {
+        do {
+          try  imageObjects = dataPersistance.loadEvents()
+
+        }  catch {
+            print(error)
+        }     }
+    
 }
  
 
 extension DisplayPhotoJounalViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return imageObjects.count
     }
     
@@ -58,4 +82,21 @@ extension DisplayPhotoJounalViewController: UICollectionViewDataSource {
     }
     
   
+}
+
+extension DisplayPhotoJounalViewController: UpdatePhotoJournal {
+    func didSaveJournal(_ imageObject: ImageObject, viewController: AddAndEditJounalsViewController) {
+        
+        do{ try dataPersistance.create(item: imageObject)} catch{ print(error)}
+        
+        imageObjects.insert(imageObject, at: 0)
+        print(imageObjects.count)
+        let indexPath = IndexPath(row: 0, section: 0)
+
+        //insert this new Cell into your collection view,
+        collectionView.insertItems(at: [indexPath])
+        
+    }
+    
+    
 }

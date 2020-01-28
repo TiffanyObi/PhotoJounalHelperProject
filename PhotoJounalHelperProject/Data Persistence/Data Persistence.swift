@@ -1,9 +1,9 @@
 //
-//  Data Persistence.swift
-//  PhotoJounalHelperProject
+//  PersistenceHelper.swift
+//  Scheduler
 //
-//  Created by Tiffany Obi on 1/27/20.
-//  Copyright © 2020 Tiffany Obi. All rights reserved.
+//  Created by Alex Paul on 1/17/20.
+//  Copyright © 2020 Alex Paul. All rights reserved.
 //
 
 import Foundation
@@ -21,13 +21,13 @@ class PersistenceHelper {
   // CRUD - create, read, update, delete
   
   // array of events
-  private var images = [ImageObject]()
+  private var events = [ImageObject]()
   
-    private var filename: String
-    
-    public init(filename: String){
-        self.filename = filename
-    }
+  private var filename: String
+  
+  init(filename: String) {
+    self.filename = filename
+  }
   
   private func save() throws {
     // step 1.
@@ -39,7 +39,7 @@ class PersistenceHelper {
     do {
       // step 3.
       // convert (serialize) the events array to Data
-      let data = try PropertyListEncoder().encode(images)
+      let data = try PropertyListEncoder().encode(events)
       
       // step 4.
       // writes, saves, persist the data to the documents directory
@@ -52,7 +52,7 @@ class PersistenceHelper {
   
   // for re-ordering
   public func reorderEvents(item: [ImageObject]) {
-    self.images = item
+    self.events = item
     try? save()
   }
   
@@ -62,7 +62,7 @@ class PersistenceHelper {
   public func create(item: ImageObject) throws {
     // step 2.
     // append new event to the events array
-   images.append(item)
+    events.append(item)
     
     do {
       try save()
@@ -81,7 +81,7 @@ class PersistenceHelper {
     if FileManager.default.fileExists(atPath: url.path) {
       if let data = FileManager.default.contents(atPath: url.path) {
         do {
-          images = try PropertyListDecoder().decode([ImageObject].self, from: data)
+          events = try PropertyListDecoder().decode([ImageObject].self, from: data)
         } catch {
           throw DataPersistenceError.decodingError(error)
         }
@@ -92,13 +92,13 @@ class PersistenceHelper {
     else {
       throw DataPersistenceError.fileDoesNotExist(filename)
     }
-    return images
+    return events
   }
   
   // delete - remove item from documents directory
   public func delete(event index: Int) throws {
     // remove the item from the events array
-    images.remove(at: index)
+    events.remove(at: index)
     
     // save our events array to the documents directory
     do {
@@ -108,3 +108,4 @@ class PersistenceHelper {
     }
   }
 }
+

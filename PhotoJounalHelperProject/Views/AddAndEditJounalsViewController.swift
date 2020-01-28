@@ -7,49 +7,148 @@
 //
 
 import UIKit
+import AVFoundation
+
+protocol UpdatePhotoJournal:AnyObject {
+    func didSaveJournal(_ imageObject:ImageObject, viewController: AddAndEditJounalsViewController)
+}
 
 class AddAndEditJounalsViewController: UITableViewController {
-
+    
     @IBOutlet weak var saveJournalButton: UIButton!
     
     @IBOutlet weak var selectedImageView: UIImageView!
     
     @IBOutlet weak var descriptionTextFeild: UITextField!
     
+    
     private var imagePickerController = UIImagePickerController()
+    
+    private var descriptionText = ""
+    
+    weak var journalDelegate: UpdatePhotoJournal?
+    
+    var selectedImage:UIImage? {
+        didSet {
+
+        }
+    }
+    var imagesObject = [ImageObject]()
+
+
+//    var imageInstance: ImageObject!
+    
+//    var dataPersistance = PersistenceHelper(filename: "photo.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-imagePickerController.delegate = self
-    }
-
-
-    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        imagePickerController.delegate = self
+        descriptionTextFeild.delegate = self
     }
     
-
-   private func showImageController(isCameraSelected:Bool) {
-       //source type default will be .photoLibrary
-       
-       imagePickerController.sourceType = .photoLibrary
-       
-       if isCameraSelected {
-           imagePickerController.sourceType = .camera
-   }
-   present(imagePickerController, animated: true)
-   }
+    
+    @IBAction func cancelButtonPressed(cancelButton: UIButton) {
+        
+        dismiss(animated: true)
+        
+        return
+    }
+    
+    
+    
+    
+    private func showImageController(isCameraSelected:Bool) {
+        //source type default will be .photoLibrary
+        
+        imagePickerController.sourceType = .photoLibrary
+        
+        if isCameraSelected {
+            imagePickerController.sourceType = .camera
+        }
+        present(imagePickerController, animated: true)
+    }
+    
+    @IBAction func saveButtonGotPressed(_ sender: UIButton) {
+        appendNewPhotoToCollection()
+    }
+    
+    
     
     @IBAction func photoLibraryButtonPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) {[weak self]
+            alertAction in
+            self?.showImageController(isCameraSelected: false)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(cancelAction)
+        present(alertController,animated: true)
     }
+    
+    
     
     
     @IBAction func cameraButtonPressed(_ sender: UIButton) {
         
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] alertAction in
+            self?.showImageController(isCameraSelected: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            alertController.addAction(cameraAction)
+            
+        } else {
+            alertController.addAction(cancelAction)
+        }
+        present(alertController,animated: true)
     }
     
-
+    
+    
+    
+    func appendNewPhotoToCollection() {
+        guard let image = selectedImage else {
+            return
+        }
+        
+        print("original image size is : \(image.size)")
+        
+        //the size for the resizing of the image
+        
+        let size = UIScreen.main.bounds.size
+        
+        // we will maintain the aspect:ratio of the image
+        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: CGPoint.zero, size: size))
+        
+        
+        // resize image
+        let resizedImage = image.resizeImage(to: rect.size.width, height: rect.size.height)
+        
+        guard let imageData = resizedImage.jpegData(compressionQuality: 1.0) else {
+            print("image is nil")
+            return
+        }
+        print("resizedImage image size is : \(resizedImage.size)")
+        // here we need to create an image object
+        let imageObject = ImageObject(description: descriptionText, imageData: imageData, date: Date())
+        
+        journalDelegate?.didSaveJournal(imageObject, viewController: self)
+        
+        imagesObject.append(imageObject)
+    }
+    
+    
+    
 }
+
+
+
 
 extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -61,17 +160,37 @@ extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINa
             return
         }
         
+        selectedImage = image
         selectedImageView.image = image
+        
         dismiss(animated: true)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
+
+
 extension AddAndEditJounalsViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        descriptionText = textField.text ?? "No Comment"
+        return textField.resignFirstResponder()
     }
 }
+
+
+extension UIImage {
+    func resizeImage(to width: CGFloat, height: CGFloat) -> UIImage {
+        let size = CGSize(width: width, height: height)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { (context) in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+    
+    
+}
+
