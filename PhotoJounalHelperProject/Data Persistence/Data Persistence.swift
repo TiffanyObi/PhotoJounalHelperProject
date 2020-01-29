@@ -82,6 +82,7 @@ class PersistenceHelper {
       if let data = FileManager.default.contents(atPath: url.path) {
         do {
           events = try PropertyListDecoder().decode([ImageObject].self, from: data)
+            
         } catch {
           throw DataPersistenceError.decodingError(error)
         }

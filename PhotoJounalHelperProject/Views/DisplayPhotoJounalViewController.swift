@@ -15,8 +15,9 @@ class DisplayPhotoJounalViewController: UIViewController {
     
     private var imageObjects = [ImageObject](){
         didSet{
+           
             collectionView.reloadData()
-           loadJournals()
+
         }
     }
     
@@ -49,7 +50,11 @@ class DisplayPhotoJounalViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let addAndEditVC = segue.destination as? AddAndEditJounalsViewController else { return }
+        
         addAndEditVC.journalDelegate = self
+//
+        
+//        imageObjects.insert(addAndEditVC.imagesObject, at: 0)
         
     }
     
@@ -78,16 +83,24 @@ extension DisplayPhotoJounalViewController: UICollectionViewDataSource {
         let cellInRow = imageObjects[indexPath.row]
         
         cell.configureCell(for: cellInRow)
+        
         return cell
     }
     
   
 }
 
+
 extension DisplayPhotoJounalViewController: UpdatePhotoJournal {
-    func didSaveJournal(_ imageObject: ImageObject, viewController: AddAndEditJounalsViewController) {
+    func didUpdateJournal(oldImageObject: ImageObject, newImageObject: ImageObject) {
         
-        do{ try dataPersistance.create(item: imageObject)} catch{ print(error)}
+    }
+    
+    
+    func didSaveJournal(imageObject: ImageObject) {
+        
+        do {
+            try dataPersistance.create(item: imageObject)} catch{print(error)}
         
         imageObjects.insert(imageObject, at: 0)
         print(imageObjects.count)

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ImageJournalCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
@@ -16,9 +17,9 @@ class ImageJournalCollectionViewCell: UICollectionViewCell {
  
     
     func configureCell(for image: ImageObject){
-        imageView.image = UIImage(systemName: "circle")
+        imageView.image = UIImage(data: image.imageData)
         
-        descriptionTextView.text = " No comment"
+        descriptionTextView.text = image.description
     }
     
 }

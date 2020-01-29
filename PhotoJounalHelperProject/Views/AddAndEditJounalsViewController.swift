@@ -9,8 +9,14 @@
 import UIKit
 import AVFoundation
 
+enum PhotoState {
+    case existingPhoto
+    case newPhoto
+}
+
 protocol UpdatePhotoJournal:AnyObject {
-    func didSaveJournal(_ imageObject:ImageObject, viewController: AddAndEditJounalsViewController)
+    func didSaveJournal(imageObject:ImageObject)
+    func didUpdateJournal(oldImageObject: ImageObject, newImageObject: ImageObject)
 }
 
 class AddAndEditJounalsViewController: UITableViewController {
@@ -28,17 +34,19 @@ class AddAndEditJounalsViewController: UITableViewController {
     
     weak var journalDelegate: UpdatePhotoJournal?
     
-    var selectedImage:UIImage? {
-        didSet {
-
+    var selectedImage:UIImage?
+      
+    
+    private var photoState = PhotoState.newPhoto
+    
+    var imagesObject: ImageObject? {
+        didSet{
+            photoState = .existingPhoto
         }
     }
-    var imagesObject = [ImageObject]()
 
-
-//    var imageInstance: ImageObject!
     
-//    var dataPersistance = PersistenceHelper(filename: "photo.plist")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +78,8 @@ class AddAndEditJounalsViewController: UITableViewController {
     
     @IBAction func saveButtonGotPressed(_ sender: UIButton) {
         appendNewPhotoToCollection()
+        
+       dismiss(animated: true)
     }
     
     
@@ -138,9 +148,10 @@ class AddAndEditJounalsViewController: UITableViewController {
         // here we need to create an image object
         let imageObject = ImageObject(description: descriptionText, imageData: imageData, date: Date())
         
-        journalDelegate?.didSaveJournal(imageObject, viewController: self)
         
-        imagesObject.append(imageObject)
+        journalDelegate?.didSaveJournal(imageObject: imageObject)
+        
+       imagesObject = imageObject
     }
     
     
@@ -177,7 +188,8 @@ extension AddAndEditJounalsViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         descriptionText = textField.text ?? "No Comment"
-        return textField.resignFirstResponder()
+        textField.resignFirstResponder()
+        return true
     }
 }
 
