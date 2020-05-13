@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol EditPhotoJournal:AnyObject {
+    func didBeginEditingJournal(_ imageJournalCollectionViewCell: ImageJournalCollectionViewCell )
+}
 
 class ImageJournalCollectionViewCell: UICollectionViewCell {
     
@@ -15,6 +18,26 @@ class ImageJournalCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var descriptionTextView: UITextView!
  
+    weak var editJournalDelegate: EditPhotoJournal?
+    
+    var viewController:DisplayPhotoJounalViewController!
+    
+    var senderTag: Int?
+    
+//    public var imageObjects = [ImageObject]() {
+//        didSet {
+//            viewController.imageObjects = imageObjects
+//        }
+//    }
+    
+    @IBAction func optionsButtonPressed(_ sender: UIButton) {
+        print("options button pressed- \(senderTag ?? -999)")
+        
+        editJournalDelegate?.didBeginEditingJournal(self)
+
+    }
+    
+    
     
     func configureCell(for image: ImageObject){
         imageView.image = UIImage(data: image.imageData)
@@ -22,4 +45,6 @@ class ImageJournalCollectionViewCell: UICollectionViewCell {
         descriptionTextView.text = image.description
     }
     
+    
 }
+

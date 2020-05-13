@@ -15,8 +15,7 @@ enum PhotoState {
 }
 
 protocol UpdatePhotoJournal:AnyObject {
-    func didSaveJournal(imageObject:ImageObject)
-    func didUpdateJournal(oldImageObject: ImageObject, newImageObject: ImageObject)
+    func didSaveJournal(imageObject:ImageObject, state: PhotoState)
 }
 
 class AddAndEditJounalsViewController: UITableViewController {
@@ -31,40 +30,79 @@ class AddAndEditJounalsViewController: UITableViewController {
     private var imagePickerController = UIImagePickerController()
     
     private var descriptionText = ""
+
     
     weak var journalDelegate: UpdatePhotoJournal?
     
-    var selectedImage:UIImage?
-      
+    weak var editJournalDelegate: EditPhotoJournal?
     
-    private var photoState = PhotoState.newPhoto
-    
-    var imagesObject: ImageObject? {
-        didSet{
-            photoState = .existingPhoto
+    var selectedImage:UIImage? {
+        didSet {
+               selectedImageView.image = selectedImage
         }
     }
-
+      
     
+    public var photoState = PhotoState.newPhoto
+    
+    var imagesObject: ImageObject!
+    var allObjects = [ImageObject]()
+    var senderTag = 0
+    var indexPath: IndexPath!
 
+     var dataPersistance = PersistenceHelper(filename: "photo.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePickerController.delegate = self
         descriptionTextFeild.delegate = self
+        editUpdate()
+        loadJournals()
+//        print(indexPath.row)
+        print("This is the photoState \(photoState)")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        saveJournalButton.isHidden = true
+    }
+    
+    init?(coder:NSCoder, imageObject: ImageObject?, indexPath: IndexPath?){
+        self.imagesObject = imageObject
+        self.indexPath = indexPath
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func loadJournals() {
+        do {
+            try  allObjects = dataPersistance.loadEvents()
+            
+        }  catch {
+            print(error)
+        }
+        
+    }
     
     @IBAction func cancelButtonPressed(cancelButton: UIButton) {
         
-        dismiss(animated: true)
-        
+navigationController?.popViewController(animated: true)
         return
     }
     
+    private func editUpdate(){
+        if imagesObject != nil {
+            saveJournalButton.titleLabel?.text = "Update"
+            photoState = .existingPhoto
+            selectedImage = UIImage(data: imagesObject.imageData)
+            descriptionTextFeild.text = imagesObject.description
+        }
+    }
     
-    
-    
+
     private func showImageController(isCameraSelected:Bool) {
         //source type default will be .photoLibrary
         
@@ -78,9 +116,20 @@ class AddAndEditJounalsViewController: UITableViewController {
     
     @IBAction func saveButtonGotPressed(_ sender: UIButton) {
         appendNewPhotoToCollection()
+        dismiss(animated: true) {
+            
+//            let displayVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "DisplayPhotoJounalViewControlle") { (coder)  in
+//                return DisplayPhotoJounalViewController(coder: coder, journals: self.allObjects, dataPersistance: self.dataPersistance)
+//
+//                }
+//
+//            displayVC.loadJournals()
+            }
+            
+            
+            
         
-       dismiss(animated: true)
-    }
+}
     
     
     
@@ -123,6 +172,9 @@ class AddAndEditJounalsViewController: UITableViewController {
     
     
     func appendNewPhotoToCollection() {
+        
+        if photoState == .newPhoto {
+        
         guard let image = selectedImage else {
             return
         }
@@ -146,20 +198,31 @@ class AddAndEditJounalsViewController: UITableViewController {
         }
         print("resizedImage image size is : \(resizedImage.size)")
         // here we need to create an image object
+            
         let imageObject = ImageObject(description: descriptionText, imageData: imageData, date: Date())
+            
+            allObjects.insert(imageObject, at: (allObjects.count - 1))
+          
+            
+            do {
+                try dataPersistance.create(item: imageObject) } catch {
+                print(error)
+            }
         
-        
-        journalDelegate?.didSaveJournal(imageObject: imageObject)
-        
-       imagesObject = imageObject
+
+        } else if photoState == .existingPhoto {
+            
+            guard let indexpath = indexPath else { return }
+            
+            let imageObject = ImageObject(description: descriptionTextFeild.text ?? "no text", imageData: imagesObject.imageData, date: Date())
+            
+                dataPersistance.update(indexPath: indexpath, newItem: imageObject)
+
     }
-    
-    
     
 }
 
-
-
+}
 
 extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -172,7 +235,7 @@ extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINa
         }
         
         selectedImage = image
-        selectedImageView.image = image
+     
         
         dismiss(animated: true)
     }
@@ -186,8 +249,13 @@ extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINa
 
 extension AddAndEditJounalsViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         descriptionText = textField.text ?? "No Comment"
+          saveJournalButton.isHidden = false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
         textField.resignFirstResponder()
         return true
     }

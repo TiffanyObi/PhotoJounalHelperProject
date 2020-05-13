@@ -11,68 +11,72 @@
         <!--Display Photo Jounal View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="DisplayPhotoJounalViewController" customModule="PhotoJounalHelperProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DisplayPhotoJounalViewController" id="BYZ-38-t0r" customClass="DisplayPhotoJounalViewController" customModule="PhotoJounalHelperProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sX4-Ww-aTo">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.9220460057258606" green="0.77107971906661987" blue="0.60456150770187378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C2k-YT-Pa5">
-                                    <size key="itemSize" width="302" height="353"/>
+                                    <size key="itemSize" width="371" height="471"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="journalCell" id="BSm-mK-k19" customClass="ImageJournalCollectionViewCell" customModule="PhotoJounalHelperProject" customModuleProvider="target">
-                                        <rect key="frame" x="56" y="0.0" width="302" height="353"/>
+                                        <rect key="frame" x="21.5" y="0.0" width="371" height="471"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Mrd-8d-quF">
-                                            <rect key="frame" x="0.0" y="0.0" width="302" height="353"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="371" height="471"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun.haze" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1pr-xz-1eO">
-                                                    <rect key="frame" x="8" y="7.5" width="286" height="249"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun.haze" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1pr-xz-1eO">
+                                                    <rect key="frame" x="15" y="19.5" width="341" height="302"/>
                                                     <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="300" id="56a-sd-NVz"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description text" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XPN-fN-WNL">
-                                                    <rect key="frame" x="31" y="263" width="240" height="57"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Description text" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPN-fN-WNL">
+                                                    <rect key="frame" x="30" y="340" width="311" height="65.5"/>
+                                                    <color key="backgroundColor" red="0.92969328165054321" green="0.89333522319793701" blue="0.67159825563430786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qr0-8p-xo2">
-                                                    <rect key="frame" x="241" y="327" width="41" height="18.5"/>
+                                                    <rect key="frame" x="160.5" y="422.5" width="50.5" height="18.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50.5" id="VZD-VG-6kC"/>
+                                                        <constraint firstAttribute="height" constant="33" id="qZm-Vp-qWU"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="4"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" backgroundImage="ellipsis" catalog="system"/>
                                                     <connections>
-                                                        <action selector="optionsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pd8-BF-Heq"/>
+                                                        <action selector="optionsButtonPressed:" destination="BSm-mK-k19" eventType="touchUpInside" id="OQu-oV-D68"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="qr0-8p-xo2" secondAttribute="bottom" id="2N5-7y-65G"/>
-                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="height" secondItem="Mrd-8d-quF" secondAttribute="height" multiplier="0.699717" id="5Rp-7r-Vqc"/>
-                                                <constraint firstItem="qr0-8p-xo2" firstAttribute="width" secondItem="Mrd-8d-quF" secondAttribute="width" multiplier="0.135762" id="EwV-VY-W6v"/>
-                                                <constraint firstAttribute="trailing" secondItem="XPN-fN-WNL" secondAttribute="trailing" constant="31" id="I1H-Ih-lgd"/>
-                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="top" secondItem="1pr-xz-1eO" secondAttribute="bottom" constant="8" id="MN7-aK-Svg"/>
-                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="leading" secondItem="Mrd-8d-quF" secondAttribute="leading" constant="31" id="Vn4-rf-axt"/>
-                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="leading" secondItem="Mrd-8d-quF" secondAttribute="leading" constant="8" id="euK-lJ-cK5"/>
-                                                <constraint firstAttribute="trailing" secondItem="1pr-xz-1eO" secondAttribute="trailing" constant="8" id="gCf-nK-KBS"/>
-                                                <constraint firstItem="qr0-8p-xo2" firstAttribute="top" secondItem="XPN-fN-WNL" secondAttribute="bottom" id="j1j-tc-Jmk"/>
-                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="top" secondItem="Mrd-8d-quF" secondAttribute="top" constant="8" id="p45-40-Eo8"/>
-                                                <constraint firstAttribute="trailing" secondItem="qr0-8p-xo2" secondAttribute="trailing" constant="20" id="rRe-0i-r6w"/>
-                                                <constraint firstAttribute="bottom" secondItem="XPN-fN-WNL" secondAttribute="bottom" constant="33" id="woq-kH-esy"/>
+                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="top" secondItem="Mrd-8d-quF" secondAttribute="top" constant="20" id="6qU-ea-EqM"/>
+                                                <constraint firstItem="1pr-xz-1eO" firstAttribute="leading" secondItem="Mrd-8d-quF" secondAttribute="leading" constant="15" id="BiZ-GA-9kI"/>
+                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="height" secondItem="1pr-xz-1eO" secondAttribute="height" multiplier="0.218333" id="Hph-6E-lUZ"/>
+                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="top" secondItem="1pr-xz-1eO" secondAttribute="bottom" constant="20" id="Moc-7l-8oy"/>
+                                                <constraint firstItem="qr0-8p-xo2" firstAttribute="centerX" secondItem="Mrd-8d-quF" secondAttribute="centerX" id="aFV-TA-uGe"/>
+                                                <constraint firstItem="qr0-8p-xo2" firstAttribute="top" secondItem="XPN-fN-WNL" secondAttribute="bottom" constant="10" id="mds-th-piJ"/>
+                                                <constraint firstItem="XPN-fN-WNL" firstAttribute="leading" secondItem="Mrd-8d-quF" secondAttribute="leading" constant="30" id="nr8-EI-7D9"/>
+                                                <constraint firstAttribute="trailing" secondItem="XPN-fN-WNL" secondAttribute="trailing" constant="30" id="uN0-Yk-nHI"/>
+                                                <constraint firstAttribute="trailing" secondItem="1pr-xz-1eO" secondAttribute="trailing" constant="15" id="uaY-kY-V5B"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="302" height="353"/>
+                                        <size key="customSize" width="371" height="471"/>
                                         <connections>
-                                            <outlet property="descriptionTextView" destination="XPN-fN-WNL" id="yXb-NS-KEz"/>
-                                            <outlet property="imageView" destination="1pr-xz-1eO" id="xT3-6m-tB1"/>
+                                            <outlet property="descriptionTextView" destination="XPN-fN-WNL" id="QIm-31-ALM"/>
+                                            <outlet property="imageView" destination="1pr-xz-1eO" id="0Xe-q5-Ey9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -84,7 +88,7 @@
                                     <barButtonItem image="plus.app.fill" catalog="system" id="jQK-Ya-Q0K">
                                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="keu-kY-Fg1" kind="presentation" id="ayh-W0-iZ4"/>
+                                            <action selector="addButtomPressed:" destination="BYZ-38-t0r" id="RrS-O4-zvY"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="pHL-7R-cOv"/>
@@ -105,7 +109,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="VBf-gv-J10"/>
                     <connections>
-                        <outlet property="collectionView" destination="sX4-Ww-aTo" id="OFa-KV-659"/>
+                        <outlet property="collectionView" destination="sX4-Ww-aTo" id="hye-z2-szY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -115,9 +119,9 @@
         <!--Add And Edit Jounals View Controller-->
         <scene sceneID="9tl-bg-Bbo">
             <objects>
-                <tableViewController id="keu-kY-Fg1" customClass="AddAndEditJounalsViewController" customModule="PhotoJounalHelperProject" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AddAndEditJounalsViewController" id="keu-kY-Fg1" customClass="AddAndEditJounalsViewController" customModule="PhotoJounalHelperProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mTE-Zr-LYh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -218,7 +222,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="6Cf-NA-Nug"/>
                     <connections>
-                        <outlet property="descriptionTextFeild" destination="ETh-qz-p12" id="uNB-sO-Hk4"/>
+                        <outlet property="descriptionTextFeild" destination="ETh-qz-p12" id="YAw-pb-np0"/>
                         <outlet property="saveJournalButton" destination="IrN-lC-bc5" id="Zja-y4-mtd"/>
                         <outlet property="selectedImageView" destination="Uph-dm-Ysr" id="o8y-5m-vga"/>
                     </connections>

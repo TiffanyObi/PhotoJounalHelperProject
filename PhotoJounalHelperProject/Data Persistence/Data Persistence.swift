@@ -96,6 +96,24 @@ class PersistenceHelper {
     return events
   }
   
+    // update - remove old item and replave with new item
+    
+    @discardableResult // silences the warning if the return value is not used by the caller.
+    public func update(indexPath: IndexPath,newItem: ImageObject) -> Bool{
+        //basically we want to find the index of the oldItem and put the newItem into that place.
+        // this is trying to see is oldItem == "currentItem" but Event has to conform to Equatable inorder to search using "firstIndex."
+        
+        events[indexPath.row] = newItem
+        
+        do {
+            try save()
+        } catch {
+            print(error)
+        }
+         return true
+        }
+
+    
   // delete - remove item from documents directory
   public func delete(event index: Int) throws {
     // remove the item from the events array
