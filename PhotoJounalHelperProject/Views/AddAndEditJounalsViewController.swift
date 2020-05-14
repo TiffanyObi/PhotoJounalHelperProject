@@ -118,12 +118,7 @@ navigationController?.popViewController(animated: true)
         appendNewPhotoToCollection()
         dismiss(animated: true) {
             
-//            let displayVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "DisplayPhotoJounalViewControlle") { (coder)  in
-//                return DisplayPhotoJounalViewController(coder: coder, journals: self.allObjects, dataPersistance: self.dataPersistance)
-//
-//                }
-//
-//            displayVC.loadJournals()
+           
             }
             
             
@@ -201,7 +196,7 @@ navigationController?.popViewController(animated: true)
             
         let imageObject = ImageObject(description: descriptionText, imageData: imageData, date: Date())
             
-            allObjects.insert(imageObject, at: (allObjects.count - 1))
+            allObjects.insert(imageObject, at: 0)
           
             
             do {
