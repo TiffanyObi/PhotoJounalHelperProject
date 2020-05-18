@@ -62,6 +62,7 @@ class PersistenceHelper {
   public func create(item: ImageObject) throws {
     // step 2.
     // append new event to the events array
+    let _ = try? loadEvents()
     events.append(item)
     
     do {
@@ -90,9 +91,9 @@ class PersistenceHelper {
         throw DataPersistenceError.noData
       }
     }
-    else {
-      throw DataPersistenceError.fileDoesNotExist(filename)
-    }
+//    else {
+//      throw DataPersistenceError.fileDoesNotExist(filename)
+//    }
     return events
   }
   
@@ -102,7 +103,7 @@ class PersistenceHelper {
     public func update(indexPath: IndexPath,newItem: ImageObject) -> Bool{
         //basically we want to find the index of the oldItem and put the newItem into that place.
         // this is trying to see is oldItem == "currentItem" but Event has to conform to Equatable inorder to search using "firstIndex."
-        
+        let _ = try? loadEvents()
         events[indexPath.row] = newItem
         
         do {

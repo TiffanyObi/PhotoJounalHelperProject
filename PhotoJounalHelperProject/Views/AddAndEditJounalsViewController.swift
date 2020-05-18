@@ -16,6 +16,7 @@ enum PhotoState {
 
 protocol UpdatePhotoJournal:AnyObject {
     func didSaveJournal(imageObject:ImageObject, state: PhotoState)
+    
 }
 
 class AddAndEditJounalsViewController: UITableViewController {
@@ -30,35 +31,35 @@ class AddAndEditJounalsViewController: UITableViewController {
     private var imagePickerController = UIImagePickerController()
     
     private var descriptionText = ""
-
+    
     
     weak var journalDelegate: UpdatePhotoJournal?
     
-    weak var editJournalDelegate: EditPhotoJournal?
+//    weak var editJournalDelegate: EditPhotoJournal?
     
     var selectedImage:UIImage? {
         didSet {
-               selectedImageView.image = selectedImage
+            selectedImageView.image = selectedImage
         }
     }
-      
+    
     
     public var photoState = PhotoState.newPhoto
     
     var imagesObject: ImageObject!
-    var allObjects = [ImageObject]()
+    //    var allObjects = [ImageObject]()
     var senderTag = 0
     var indexPath: IndexPath!
-
-     var dataPersistance = PersistenceHelper(filename: "photo.plist")
+    
+    var dataPersistance = PersistenceHelper(filename: "photo.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePickerController.delegate = self
         descriptionTextFeild.delegate = self
         editUpdate()
-        loadJournals()
-//        print(indexPath.row)
+        //        loadJournals()
+        //        print(indexPath.row)
         print("This is the photoState \(photoState)")
     }
     
@@ -77,19 +78,19 @@ class AddAndEditJounalsViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadJournals() {
-        do {
-            try  allObjects = dataPersistance.loadEvents()
-            
-        }  catch {
-            print(error)
-        }
-        
-    }
+    //    func loadJournals() {
+    //        do {
+    //            try  allObjects = dataPersistance.loadEvents()
+    //
+    //        }  catch {
+    //            print(error)
+    //        }
+    //
+    //    }
     
     @IBAction func cancelButtonPressed(cancelButton: UIButton) {
         
-navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         return
     }
     
@@ -102,7 +103,7 @@ navigationController?.popViewController(animated: true)
         }
     }
     
-
+    
     private func showImageController(isCameraSelected:Bool) {
         //source type default will be .photoLibrary
         
@@ -118,13 +119,13 @@ navigationController?.popViewController(animated: true)
         appendNewPhotoToCollection()
         dismiss(animated: true) {
             
-           
-            }
             
-            
-            
+        }
         
-}
+        
+        
+        
+    }
     
     
     
@@ -169,54 +170,56 @@ navigationController?.popViewController(animated: true)
     func appendNewPhotoToCollection() {
         
         if photoState == .newPhoto {
-        
-        guard let image = selectedImage else {
-            return
-        }
-        
-        print("original image size is : \(image.size)")
-        
-        //the size for the resizing of the image
-        
-        let size = UIScreen.main.bounds.size
-        
-        // we will maintain the aspect:ratio of the image
-        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: CGPoint.zero, size: size))
-        
-        
-        // resize image
-        let resizedImage = image.resizeImage(to: rect.size.width, height: rect.size.height)
-        
-        guard let imageData = resizedImage.jpegData(compressionQuality: 1.0) else {
-            print("image is nil")
-            return
-        }
-        print("resizedImage image size is : \(resizedImage.size)")
-        // here we need to create an image object
             
-        let imageObject = ImageObject(description: descriptionText, imageData: imageData, date: Date())
+            guard let image = selectedImage else {
+                return
+            }
             
-            allObjects.insert(imageObject, at: 0)
-          
+            print("original image size is : \(image.size)")
+            
+            //the size for the resizing of the image
+            
+            let size = UIScreen.main.bounds.size
+            
+            // we will maintain the aspect:ratio of the image
+            let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: CGPoint.zero, size: size))
+            
+            
+            // resize image
+            let resizedImage = image.resizeImage(to: rect.size.width, height: rect.size.height)
+            
+            guard let imageData = resizedImage.jpegData(compressionQuality: 1.0) else {
+                print("image is nil")
+                return
+            }
+            print("resizedImage image size is : \(resizedImage.size)")
+            // here we need to create an image object
+            
+            imagesObject = ImageObject(description: descriptionText, imageData: imageData, date: Date())
+            
+            //            allObjects.insert(imageObject, at: 0)
+            
             
             do {
-                try dataPersistance.create(item: imageObject) } catch {
-                print(error)
+                try dataPersistance.create(item: imagesObject) } catch {
+                    print(error)
             }
-        
-
+            
+            
         } else if photoState == .existingPhoto {
             
             guard let indexpath = indexPath else { return }
             
-            let imageObject = ImageObject(description: descriptionTextFeild.text ?? "no text", imageData: imagesObject.imageData, date: Date())
+            imagesObject = ImageObject(description: descriptionTextFeild.text ?? "no text", imageData: imagesObject.imageData, date: Date())
             
-                dataPersistance.update(indexPath: indexpath, newItem: imageObject)
-
+            dataPersistance.update(indexPath: indexpath, newItem: imagesObject)
+            
+        }
+        
+        
+        journalDelegate?.didSaveJournal(imageObject: imagesObject, state: .existingPhoto)
     }
     
-}
-
 }
 
 extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -230,7 +233,7 @@ extension AddAndEditJounalsViewController: UIImagePickerControllerDelegate, UINa
         }
         
         selectedImage = image
-     
+        
         
         dismiss(animated: true)
     }
@@ -246,11 +249,11 @@ extension AddAndEditJounalsViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         descriptionText = textField.text ?? "No Comment"
-          saveJournalButton.isHidden = false
+        saveJournalButton.isHidden = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    
+        
         textField.resignFirstResponder()
         return true
     }

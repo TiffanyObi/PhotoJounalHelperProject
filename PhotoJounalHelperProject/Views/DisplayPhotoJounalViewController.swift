@@ -54,7 +54,12 @@ class DisplayPhotoJounalViewController: UIViewController {
         print("view did load")
     }
   
-    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard let addEditVC = segue.destination as? AddAndEditJounalsViewController else {
+//            fatalError("could not segue to AddAndEditJounalsViewController")
+//        }
+//        addEditVC.journalDelegate = self
+//    }
     
     @IBAction func addButtomPressed(_ sender: UIBarButtonItem) {
         
@@ -62,7 +67,7 @@ class DisplayPhotoJounalViewController: UIViewController {
         let editViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AddAndEditJounalsViewController") { (coder) in
             return AddAndEditJounalsViewController(coder: coder, imageObject: nil, indexPath: nil)
         }
-
+        editViewController.journalDelegate = self
         present(editViewController, animated: true, completion: nil)
         
         
@@ -157,6 +162,15 @@ extension DisplayPhotoJounalViewController: EditPhotoJournal {
     
 }
 
-
+extension DisplayPhotoJounalViewController: UpdatePhotoJournal {
+    func didSaveJournal(imageObject: ImageObject, state: PhotoState) {
+        
+    loadJournals()
+        
+        
+    }
+    
+    
+}
 
 
